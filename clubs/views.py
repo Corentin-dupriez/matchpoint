@@ -21,7 +21,6 @@ class ClubViewSet(ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         user = request.user
-        print(request.__dict__)
         club = self.get_object()
         if user not in club.employees.all():
             return Response(
