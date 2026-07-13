@@ -5,8 +5,8 @@ class Club(models.Model):
     class CityChoices(models.TextChoices):
         SOFIA = ("Sofia", "SOF")
 
-    name = models.CharField(max_length=100)
-    city = models.CharField(choices=CityChoices.choices)
+    name = models.CharField(max_length=100, unique=True, null=False, blank=False)
+    city = models.CharField(choices=CityChoices.choices, default=CityChoices.SOFIA)
     address = models.CharField(max_length=300, null=True, blank=True)
     description = models.CharField(max_length=1000, null=True, blank=True)
     website = models.URLField(null=True, blank=True)
