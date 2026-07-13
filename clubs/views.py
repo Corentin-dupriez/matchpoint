@@ -19,6 +19,17 @@ class ClubViewSet(ModelViewSet):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
 
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                data={
+                    "status": "error",
+                    "message": "You are not allowed to create a new club",
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        return super().create(request, *args, **kwargs)
+
     def update(self, request, *args, **kwargs):
         user = request.user
         club = self.get_object()
@@ -37,6 +48,17 @@ class ClubViewSet(ModelViewSet):
             {"status": "success", "message": "The resource was updated successfully"},
             status=status.HTTP_200_OK,
         )
+
+    def destroy(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                data={
+                    "status": "error",
+                    "message": "You are not allowed to delete clubs",
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        return super().destroy(request, *args, **kwargs)
 
     @action(methods=["get"], detail=True)
     def courts(self, request, pk=None) -> Response:
