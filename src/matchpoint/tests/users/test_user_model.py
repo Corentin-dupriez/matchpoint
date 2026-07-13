@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase
 
+from profiles.models import Profile
 from users.models import CustomUser
 
 
@@ -15,11 +16,16 @@ class CustomUserModelTestCase(TestCase):
         )
 
     def test_user_creation_creates_user(self):
+        self.user.refresh_from_db()
         self.assertEqual(1, CustomUser.objects.filter(is_staff=False).count())
         self.assertEqual(self.user.email, "test@test.com")
         self.assertIsNotNone(self.user.password)
         self.assertFalse(self.user.is_staff)
         self.assertFalse(self.user.is_superuser)
+
+        profile = Profile.objects.filter(user=self.user)
+        self.assertEqual(1, profile.count())
+        self.assertEqual(self.user, profile.first().user)
 
     def test_superuser_creation_creates_superuser(self):
         self.assertEqual(1, CustomUser.objects.filter(is_staff=True).count())
