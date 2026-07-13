@@ -36,6 +36,7 @@ urlpatterns = [
     path("api/", include("clubs.urls")),
     path("api/", include("profiles.urls")),
     path("api/", include("users.urls")),
+    path("api/", include("courts.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

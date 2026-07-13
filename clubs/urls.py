@@ -1,5 +1,5 @@
 from django.urls import include, path
-from .views import ClubViewSet, GetClubView
+from .views import ClubViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

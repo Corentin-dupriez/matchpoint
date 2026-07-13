@@ -4,15 +4,11 @@ from rest_framework import generics
 from rest_framework.exceptions import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+
+from users.serializers import UserListSerializer, UserSerializer
 from .models import Club
 from .serializers import ClubSerializer
 from courts.serializers import CourtSerializer
-
-
-class GetClubView(generics.RetrieveAPIView):
-    model = Club
-    queryset = Club.objects.all()
-    serializer_class = ClubSerializer
 
 
 class ClubViewSet(ModelViewSet):
@@ -59,6 +55,20 @@ class ClubViewSet(ModelViewSet):
                 status=status.HTTP_401_UNAUTHORIZED,
             )
         return super().destroy(request, *args, **kwargs)
+
+    @action(methods=["get"], detail=True)
+    def employees(self, request, pk=None) -> Response:
+        club = self.get_object()
+        if request.user not in club.employees.all():
+            return Response(
+                {
+                    "status": "error",
+                    "message": "You are not allowed to view the details of this club",
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        serializer = UserListSerializer(club.employees.all(), many=True)
+        return Response(serializer.data)
 
     @action(methods=["get"], detail=True)
     def courts(self, request, pk=None) -> Response:
