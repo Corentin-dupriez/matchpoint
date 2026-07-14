@@ -40,8 +40,11 @@ class TestClubsAPIViews(APITestCase):
             sport_type="Tennis",
             surface_type="Clay",
         )
+        court.refresh_from_db()
         self.client.login(username=self.user.email, password=self.user.password)
         response: Response = self.client.get(
             reverse("clubs-get-club-courts", kwargs={"pk": self.club.pk})
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]["club_id"], self.club.id)
+        self.assertEqual(len(response.data), 1)
