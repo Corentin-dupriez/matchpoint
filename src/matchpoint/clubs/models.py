@@ -1,4 +1,6 @@
 from django.db import models
+from courts.models import Court
+from common.validators import ValidHoursValidator
 
 
 class Club(models.Model):
@@ -25,7 +27,16 @@ class OpeningHours(models.Model):
         SATURDAY = "Saturday", "Sat"
         SUNDAY = "Sunday", "Sun"
 
-    club_id = models.ManyToManyField(to=Club)
+    club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
     weekday = models.CharField(choices=WeekdayChoices.choices)
-    opening_hour = models.IntegerField()
-    closing_hour = models.IntegerField()
+    opening_hour = models.CharField(validators=[ValidHoursValidator("Incorrect time")])
+    closing_hour = models.CharField(validators=[ValidHoursValidator("Incorrect time")])
+
+
+class ExceptionalUnavailability(models.Model):
+    club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
+    court = models.ForeignKey(to=Court, on_delete=models.CASCADE, blank=True)
+    day_start = models.DateField()
+    day_end = models.DateField()
+    start_hour = models.IntegerField(validators=[ValidHoursValidator()])
+    end_hour = models.IntegerField(validators=[ValidHoursValidator()])

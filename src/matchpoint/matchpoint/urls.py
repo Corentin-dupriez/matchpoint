@@ -17,7 +17,6 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-import rest_framework
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -34,6 +33,7 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/", include("clubs.urls")),
+    path("api/", include("reservations.urls")),
     path("api/", include("profiles.urls")),
     path("api/", include("users.urls")),
     path("api/", include("courts.urls")),

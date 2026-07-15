@@ -1,5 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    AbstractUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 
 
 class UserManager(BaseUserManager):
@@ -21,13 +26,15 @@ class UserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     class LanguageChoices(models.TextChoices):
         BULGARIAN = "Bulgarian", "BG"
         ENGLISH = "English", "EN"
 
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=12)
+    first_name = models.CharField()
+    last_name = models.CharField()
     is_phone_verified = models.BooleanField(default=False)
     preferred_language = models.CharField(
         choices=LanguageChoices.choices, default=LanguageChoices.BULGARIAN
