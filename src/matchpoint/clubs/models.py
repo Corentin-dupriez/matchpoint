@@ -36,7 +36,5 @@ class OpeningHours(models.Model):
 class ExceptionalUnavailability(models.Model):
     club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
     court = models.ForeignKey(to=Court, on_delete=models.CASCADE, blank=True)
-    day_start = models.DateField()
-    day_end = models.DateField()
-    start_hour = models.IntegerField(validators=[ValidHoursValidator()])
-    end_hour = models.IntegerField(validators=[ValidHoursValidator()])
+    start_datetime = models.DateTimeField()
+    end_datetime = models.DateTimeField()
