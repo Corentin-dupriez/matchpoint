@@ -4,60 +4,58 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_alter_customuser_preferred_language'),
+        ("users", "0002_alter_customuser_preferred_language"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='customuser',
+            name="customuser",
             options={},
         ),
         migrations.AlterModelManagers(
-            name='customuser',
-            managers=[
-            ],
+            name="customuser",
+            managers=[],
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='date_joined',
+            model_name="customuser",
+            name="date_joined",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='first_name',
+            model_name="customuser",
+            name="first_name",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='groups',
+            model_name="customuser",
+            name="groups",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='is_active',
+            model_name="customuser",
+            name="is_active",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='is_staff',
+            model_name="customuser",
+            name="is_staff",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='is_superuser',
+            model_name="customuser",
+            name="is_superuser",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='last_name',
+            model_name="customuser",
+            name="last_name",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='user_permissions',
+            model_name="customuser",
+            name="user_permissions",
         ),
         migrations.RemoveField(
-            model_name='customuser',
-            name='username',
+            model_name="customuser",
+            name="username",
         ),
         migrations.AlterField(
-            model_name='customuser',
-            name='email',
+            model_name="customuser",
+            name="email",
             field=models.EmailField(max_length=254, unique=True),
         ),
     ]

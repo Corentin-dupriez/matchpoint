@@ -5,34 +5,37 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('reservations', '0002_alter_reservation_start_time'),
+        ("reservations", "0002_alter_reservation_start_time"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='reservation',
-            name='day',
+            model_name="reservation",
+            name="day",
         ),
         migrations.RemoveField(
-            model_name='reservation',
-            name='duration_min',
+            model_name="reservation",
+            name="duration_min",
         ),
         migrations.RemoveField(
-            model_name='reservation',
-            name='start_time',
+            model_name="reservation",
+            name="start_time",
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='end_datetime',
-            field=models.DateTimeField(default=datetime.datetime(2026, 7, 16, 8, 28, 27, 358078)),
+            model_name="reservation",
+            name="end_datetime",
+            field=models.DateTimeField(
+                default=datetime.datetime(2026, 7, 16, 8, 28, 27, 358078)
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='start_datetime',
-            field=models.DateTimeField(default=datetime.datetime(2026, 7, 16, 8, 28, 36, 318460)),
+            model_name="reservation",
+            name="start_datetime",
+            field=models.DateTimeField(
+                default=datetime.datetime(2026, 7, 16, 8, 28, 36, 318460)
+            ),
             preserve_default=False,
         ),
     ]

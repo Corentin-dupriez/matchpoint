@@ -1,5 +1,4 @@
 from django.db import models
-from common.validators import ValidHoursValidator
 from courts.models import Court
 from users.models import CustomUser
 

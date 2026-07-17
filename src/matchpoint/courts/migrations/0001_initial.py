@@ -5,21 +5,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('clubs', '0001_initial'),
+        ("clubs", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Court',
+            name="Court",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_covered', models.BooleanField()),
-                ('is_lit', models.BooleanField()),
-                ('club_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='clubs.club')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_covered", models.BooleanField()),
+                ("is_lit", models.BooleanField()),
+                (
+                    "club_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="clubs.club"
+                    ),
+                ),
             ],
         ),
     ]

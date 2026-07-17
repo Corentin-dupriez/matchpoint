@@ -6,28 +6,57 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0008_alter_openinghours_closing_hour_and_more'),
-        ('courts', '0004_alter_court_club_id'),
+        ("clubs", "0008_alter_openinghours_closing_hour_and_more"),
+        ("courts", "0004_alter_court_club_id"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='openinghours',
-            old_name='club_id',
-            new_name='club',
+            model_name="openinghours",
+            old_name="club_id",
+            new_name="club",
         ),
         migrations.CreateModel(
-            name='ExceptionalUnavailability',
+            name="ExceptionalUnavailability",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('day_start', models.DateField()),
-                ('day_end', models.DateField()),
-                ('start_hour', models.IntegerField(validators=[common.validators.ValidHoursValidator()])),
-                ('end_hour', models.IntegerField(validators=[common.validators.ValidHoursValidator()])),
-                ('club', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='clubs.club')),
-                ('court', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='courts.court')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("day_start", models.DateField()),
+                ("day_end", models.DateField()),
+                (
+                    "start_hour",
+                    models.IntegerField(
+                        validators=[common.validators.ValidHoursValidator()]
+                    ),
+                ),
+                (
+                    "end_hour",
+                    models.IntegerField(
+                        validators=[common.validators.ValidHoursValidator()]
+                    ),
+                ),
+                (
+                    "club",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="clubs.club"
+                    ),
+                ),
+                (
+                    "court",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="courts.court",
+                    ),
+                ),
             ],
         ),
     ]

@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0012_remove_exceptionalunavailability_day_end_and_more'),
+        ("clubs", "0012_remove_exceptionalunavailability_day_end_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='openinghours',
-            name='closing_hour',
+            model_name="openinghours",
+            name="closing_hour",
             field=models.TimeField(),
         ),
         migrations.AlterField(
-            model_name='openinghours',
-            name='opening_hour',
+            model_name="openinghours",
+            name="opening_hour",
             field=models.TimeField(),
         ),
     ]

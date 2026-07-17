@@ -4,32 +4,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('profiles', '0001_initial'),
+        ("profiles", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='profile',
-            name='email',
+            model_name="profile",
+            name="email",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='first_name',
+            model_name="profile",
+            name="first_name",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='last_name',
+            model_name="profile",
+            name="last_name",
         ),
         migrations.AddField(
-            model_name='profile',
-            name='is_phone_verified',
+            model_name="profile",
+            name="is_phone_verified",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='preferred_language',
-            field=models.CharField(choices=[('Bulgarian', 'BG'), ('English', 'EN')], default='Bulgarian'),
+            model_name="profile",
+            name="preferred_language",
+            field=models.CharField(
+                choices=[("Bulgarian", "BG"), ("English", "EN")], default="Bulgarian"
+            ),
         ),
     ]

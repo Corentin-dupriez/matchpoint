@@ -34,5 +34,5 @@ class CustomUserModelTestCase(TestCase):
         self.assertTrue(self.superuser.is_superuser)
 
     def test_create_user_with_same_name_raises(self):
-        with self.assertRaises(IntegrityError) as e:
+        with self.assertRaises(IntegrityError):
             CustomUser.objects.create_user(email="test@test.com", password="12test34")

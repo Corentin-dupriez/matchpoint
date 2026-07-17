@@ -8,7 +8,6 @@ from django.db import transaction
 from rest_framework.exceptions import ValidationError
 import datetime
 from django.db.models import Q
-from clubs.models import Club
 
 
 class ReservationService:

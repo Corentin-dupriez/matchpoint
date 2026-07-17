@@ -4,22 +4,21 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('profiles', '0003_alter_profile_user'),
+        ("profiles", "0003_alter_profile_user"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='profile',
-            name='is_phone_verified',
+            model_name="profile",
+            name="is_phone_verified",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='phone_number',
+            model_name="profile",
+            name="phone_number",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='preferred_language',
+            model_name="profile",
+            name="preferred_language",
         ),
     ]

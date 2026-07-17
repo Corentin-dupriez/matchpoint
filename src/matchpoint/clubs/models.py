@@ -1,6 +1,5 @@
 from django.db import models
 from courts.models import Court
-from common.validators import ValidHoursValidator
 
 
 class Club(models.Model):

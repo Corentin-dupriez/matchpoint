@@ -4,22 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0005_alter_customuser_is_superuser'),
+        ("users", "0005_alter_customuser_is_superuser"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customuser',
-            name='first_name',
-            field=models.CharField(default=''),
+            model_name="customuser",
+            name="first_name",
+            field=models.CharField(default=""),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='last_name',
-            field=models.CharField(default=''),
+            model_name="customuser",
+            name="last_name",
+            field=models.CharField(default=""),
             preserve_default=False,
         ),
     ]

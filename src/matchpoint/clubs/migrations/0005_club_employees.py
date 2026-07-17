@@ -5,16 +5,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0004_openinghours_closing_hour_openinghours_opening_hour'),
+        ("clubs", "0004_openinghours_closing_hour_openinghours_opening_hour"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='club',
-            name='employees',
-            field=models.ManyToManyField(related_name='club', to=settings.AUTH_USER_MODEL),
+            model_name="club",
+            name="employees",
+            field=models.ManyToManyField(
+                related_name="club", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

@@ -5,38 +5,41 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0011_alter_openinghours_closing_hour_and_more'),
+        ("clubs", "0011_alter_openinghours_closing_hour_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='exceptionalunavailability',
-            name='day_end',
+            model_name="exceptionalunavailability",
+            name="day_end",
         ),
         migrations.RemoveField(
-            model_name='exceptionalunavailability',
-            name='day_start',
+            model_name="exceptionalunavailability",
+            name="day_start",
         ),
         migrations.RemoveField(
-            model_name='exceptionalunavailability',
-            name='end_hour',
+            model_name="exceptionalunavailability",
+            name="end_hour",
         ),
         migrations.RemoveField(
-            model_name='exceptionalunavailability',
-            name='start_hour',
+            model_name="exceptionalunavailability",
+            name="start_hour",
         ),
         migrations.AddField(
-            model_name='exceptionalunavailability',
-            name='end_datetime',
-            field=models.DateTimeField(default=datetime.datetime(2026, 7, 16, 8, 28, 8, 6807)),
+            model_name="exceptionalunavailability",
+            name="end_datetime",
+            field=models.DateTimeField(
+                default=datetime.datetime(2026, 7, 16, 8, 28, 8, 6807)
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='exceptionalunavailability',
-            name='start_datetime',
-            field=models.DateTimeField(default=datetime.datetime(2026, 7, 16, 8, 28, 18, 235009)),
+            model_name="exceptionalunavailability",
+            name="start_datetime",
+            field=models.DateTimeField(
+                default=datetime.datetime(2026, 7, 16, 8, 28, 18, 235009)
+            ),
             preserve_default=False,
         ),
     ]

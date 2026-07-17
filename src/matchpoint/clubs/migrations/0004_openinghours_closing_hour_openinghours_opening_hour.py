@@ -4,21 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0003_openinghours'),
+        ("clubs", "0003_openinghours"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='openinghours',
-            name='closing_hour',
+            model_name="openinghours",
+            name="closing_hour",
             field=models.IntegerField(default=22),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='openinghours',
-            name='opening_hour',
+            model_name="openinghours",
+            name="opening_hour",
             field=models.IntegerField(default=8),
             preserve_default=False,
         ),

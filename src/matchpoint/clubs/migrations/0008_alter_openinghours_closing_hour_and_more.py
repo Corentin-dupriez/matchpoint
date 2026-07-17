@@ -6,30 +6,35 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0007_alter_club_city'),
+        ("clubs", "0007_alter_club_city"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='openinghours',
-            name='closing_hour',
-            field=models.IntegerField(validators=[common.validators.ValidHoursValidator()]),
+            model_name="openinghours",
+            name="closing_hour",
+            field=models.IntegerField(
+                validators=[common.validators.ValidHoursValidator()]
+            ),
         ),
         migrations.RemoveField(
-            model_name='openinghours',
-            name='club_id',
+            model_name="openinghours",
+            name="club_id",
         ),
         migrations.AlterField(
-            model_name='openinghours',
-            name='opening_hour',
-            field=models.IntegerField(validators=[common.validators.ValidHoursValidator()]),
+            model_name="openinghours",
+            name="opening_hour",
+            field=models.IntegerField(
+                validators=[common.validators.ValidHoursValidator()]
+            ),
         ),
         migrations.AddField(
-            model_name='openinghours',
-            name='club_id',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='clubs.club'),
+            model_name="openinghours",
+            name="club_id",
+            field=models.ForeignKey(
+                default=1, on_delete=django.db.models.deletion.CASCADE, to="clubs.club"
+            ),
             preserve_default=False,
         ),
     ]

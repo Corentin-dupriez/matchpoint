@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0006_alter_club_name'),
+        ("clubs", "0006_alter_club_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='club',
-            name='city',
-            field=models.CharField(choices=[('Sofia', 'SOF')], default='Sofia'),
+            model_name="club",
+            name="city",
+            field=models.CharField(choices=[("Sofia", "SOF")], default="Sofia"),
         ),
     ]

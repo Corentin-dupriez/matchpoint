@@ -5,20 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0010_alter_openinghours_closing_hour_and_more'),
+        ("clubs", "0010_alter_openinghours_closing_hour_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='openinghours',
-            name='closing_hour',
-            field=models.CharField(validators=[common.validators.ValidHoursValidator('Incorrect time')]),
+            model_name="openinghours",
+            name="closing_hour",
+            field=models.CharField(
+                validators=[common.validators.ValidHoursValidator("Incorrect time")]
+            ),
         ),
         migrations.AlterField(
-            model_name='openinghours',
-            name='opening_hour',
-            field=models.CharField(validators=[common.validators.ValidHoursValidator('Incorrect time')]),
+            model_name="openinghours",
+            name="opening_hour",
+            field=models.CharField(
+                validators=[common.validators.ValidHoursValidator("Incorrect time")]
+            ),
         ),
     ]

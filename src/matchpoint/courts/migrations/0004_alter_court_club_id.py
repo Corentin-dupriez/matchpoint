@@ -5,16 +5,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clubs', '0004_openinghours_closing_hour_openinghours_opening_hour'),
-        ('courts', '0003_rename_is_covered_court_is_indoor_and_more'),
+        ("clubs", "0004_openinghours_closing_hour_openinghours_opening_hour"),
+        ("courts", "0003_rename_is_covered_court_is_indoor_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='court',
-            name='club_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='courts', to='clubs.club'),
+            model_name="court",
+            name="club_id",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="courts",
+                to="clubs.club",
+            ),
         ),
     ]

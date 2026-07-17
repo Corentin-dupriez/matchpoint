@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0004_customuser_is_staff_customuser_is_superuser'),
+        ("users", "0004_customuser_is_staff_customuser_is_superuser"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='is_superuser',
+            model_name="customuser",
+            name="is_superuser",
             field=models.BooleanField(default=False),
         ),
     ]

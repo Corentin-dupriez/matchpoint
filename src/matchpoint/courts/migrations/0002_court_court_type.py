@@ -4,16 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courts', '0001_initial'),
+        ("courts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='court',
-            name='court_type',
-            field=models.CharField(choices=[('Grass', 'Grass'), ('Clay', 'Clay'), ('Hard', 'Hard')], default='Grass'),
+            model_name="court",
+            name="court_type",
+            field=models.CharField(
+                choices=[("Grass", "Grass"), ("Clay", "Clay"), ("Hard", "Hard")],
+                default="Grass",
+            ),
             preserve_default=False,
         ),
     ]
