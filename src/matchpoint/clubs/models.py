@@ -29,8 +29,8 @@ class OpeningHours(models.Model):
 
     club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
     weekday = models.CharField(choices=WeekdayChoices.choices)
-    opening_hour = models.CharField(validators=[ValidHoursValidator("Incorrect time")])
-    closing_hour = models.CharField(validators=[ValidHoursValidator("Incorrect time")])
+    opening_hour = models.TimeField()
+    closing_hour = models.TimeField()
 
 
 class ExceptionalUnavailability(models.Model):

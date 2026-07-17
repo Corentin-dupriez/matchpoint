@@ -1,78 +1,73 @@
 from rest_framework.decorators import action
-from rest_framework.exceptions import status
-from rest_framework.viewsets import ModelViewSet
+from drf_spectacular.utils import (
+    extend_schema,
+    extend_schema_view,
+)
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.request import Request
+from rest_framework import mixins
+from rest_framework.viewsets import GenericViewSet
+from clubs.permissions import IsClubEmployeeOrAdmin
 from users.serializers import UserListSerializer
 from .models import Club
 from .serializers import ClubSerializer
 from courts.serializers import CourtSerializer
+from common.serializers import ErrorSerializer
 
 
-class ClubViewSet(ModelViewSet):
+@extend_schema_view(
+    list=extend_schema(
+        summary="List clubs", description="Returns a list of all the clubs in the app."
+    ),
+    retrieve=extend_schema(
+        summary="Retrieve a club",
+        description="Retrieve a specific club based on the PK provided in the path.",
+    ),
+    update=extend_schema(
+        summary="Update a club",
+        description="Update the details of a club. The action can only be performed by the staff of the club or by an admin.",
+    ),
+    partial_update=extend_schema(
+        summary="Update a club",
+        description="Update the details of a club. The action can only be performed by the staff of the club or by an admin.",
+    ),
+)
+class ClubViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    GenericViewSet,
+):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
 
-    def create(self, request: Request, *args, **kwargs) -> Response:
-        if not request.user.is_staff:
-            return Response(
-                data={
-                    "status": "error",
-                    "message": "You are not allowed to create a new club",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        return super().create(request, *args, **kwargs)
+    def get_permissions(self):
+        if self.action in ("update", "partial_update", "employees"):
+            return [IsAuthenticated(), IsClubEmployeeOrAdmin()]
+        return []
 
-    def update(self, request: Request, *args, **kwargs) -> Response:
-        user = request.user
-        club = self.get_object()
-        if user not in club.employees.all():
-            return Response(
-                data={
-                    "status": "error",
-                    "message": "You are not allowed to modify this resource",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        serializer = self.get_serializer(instance=club, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(
-            {"status": "success", "message": "The resource was updated successfully"},
-            status=status.HTTP_200_OK,
-        )
-
-    def destroy(self, request: Request, *args, **kwargs) -> Response:
-        if not request.user.is_staff:
-            return Response(
-                data={
-                    "status": "error",
-                    "message": "You are not allowed to delete clubs",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        return super().destroy(request, *args, **kwargs)
-
-    @action(
-        methods=["get"],
-        detail=True,
+    @extend_schema(
+        summary="Retrieve the courts of a club",
+        description="Retrieves all the courts of a specific club which PK is provided in the URL.",
     )
-    def employees(self, request: Request, pk=None) -> Response:
-        club: Club = self.get_object()
-        if request.user not in club.employees.all() or not request.user.is_staff:
-            return Response(
-                {
-                    "status": "error",
-                    "message": "You are not allowed to view the details of this club",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        serializer = UserListSerializer(club.employees.all(), many=True)
-        return Response(serializer.data)
-
     @action(methods=["get"], detail=True, url_name="get-club-courts")
     def courts(self, request: Request, pk=None) -> Response:
         club = self.get_object()
         serializer = CourtSerializer(club.courts.all(), many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        summary="Retrieve the employees of a club",
+        description="Retrieves the employees of a specific club which PK is provided in the URL. The endpoint is available to club employees and admins.",
+        responses={201: UserListSerializer(many=True), 403: ErrorSerializer},
+    )
+    @action(
+        methods=["get"],
+        detail=True,
+        permission_classes=[IsClubEmployeeOrAdmin, IsAdminUser],
+    )
+    def employees(self, request: Request, pk=None) -> Response:
+        club: Club = self.get_object()
+        serializer = UserListSerializer(club.employees.all(), many=True)
         return Response(serializer.data)

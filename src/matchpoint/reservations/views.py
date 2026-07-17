@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .permissions import IsStaffOrReservationOwner
 from typing import Any
 from .services import ReservationService
+from rest_framework.decorators import action
 
 
 class ReservationViewset(viewsets.ModelViewSet):
@@ -34,3 +35,8 @@ class ReservationViewset(viewsets.ModelViewSet):
             serializer.validated_data["end_datetime"],
         )
         return Response(data=ReservationsSerializer(reservation))
+
+    @action(methods=["get"], detail=True, url_name="get_available_times")
+    def get_available_times(self, request: Request, *args, **kwargs) -> Response:
+        availabilities = ReservationService.get_availability()
+        return Response()
