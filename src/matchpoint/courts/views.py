@@ -1,15 +1,58 @@
 import datetime
 from django.shortcuts import render
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from clubs.permissions import IsClubEmployeeOrAdmin
+from common.serializers import ErrorSerializer
 from courts.serializers import CourtOpeningSerializer, CourtSerializer
 from .models import Court
 from reservations.services import ReservationService
 
 
+@extend_schema_view(
+    create=extend_schema(
+        summary="Create a court",
+        description="Create a court. Only available to club employees and admins.",
+        request=CourtSerializer,
+        responses={201: CourtSerializer, 401: ErrorSerializer, 403: ErrorSerializer},
+    ),
+    retrieve=extend_schema(
+        summary="Retrieve a court",
+        description="Retrieve the details of a court based on the PK in the URL.",
+        responses={200: CourtSerializer, 404: ErrorSerializer},
+    ),
+    update=extend_schema(
+        summary="Update the details of a court",
+        description="Update the details of the court which PK is in the URL.",
+        request=CourtSerializer,
+        responses={
+            200: CourtSerializer,
+            404: ErrorSerializer,
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+        },
+    ),
+    partial_update=extend_schema(
+        summary="Update the details of a court",
+        description="Update the details of the court which PK is in the URL.",
+        request=CourtSerializer,
+        responses={
+            200: CourtSerializer,
+            404: ErrorSerializer,
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+        },
+    ),
+    destroy=extend_schema(
+        summary="Delete a court",
+        description="Delete a court which PK is in the URL. Only available to employees and admins",
+    ),
+)
 class CourtViewSet(
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
@@ -20,6 +63,16 @@ class CourtViewSet(
     queryset = Court.objects.all()
     serializer_class = CourtSerializer
 
+    def get_permissions(self):
+        if self.action in ("create", "update", "partial_update", "destroy"):
+            return [IsAuthenticated(), IsClubEmployeeOrAdmin()]
+        return []
+
+    @extend_schema(
+        summary="Retrieve the court's schedule",
+        description="Retrieve the schedule of a court which PK is in the URL",
+        responses={200: CourtOpeningSerializer, 404: ErrorSerializer},
+    )
     @action(methods=["get"], detail=True, url_name="schedule", url_path="schedule")
     def get_available_times(self, request: Request, *args, **kwargs) -> Response:
         court = self.get_object()
