@@ -11,6 +11,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 import datetime
 
 UserModel = get_user_model()
+tz = timezone.get_current_timezone()
 
 
 class TestCourtViewset(APITestCase):
@@ -47,21 +48,28 @@ class TestCourtViewset(APITestCase):
         open = datetime.time(hour=8, minute=0)
         close = datetime.time(hour=17, minute=0)
 
-        reservation_start: datetime.datetime = datetime.datetime.combine(
-            timezone.now(), open
-        ) + datetime.timedelta(minutes=30)
-        reservation_end: datetime.datetime = datetime.datetime.combine(
-            timezone.now(), open
-        ) + datetime.timedelta(hours=1, minutes=30)
+        # Create a reservation object for the 2nd slot of the day
 
-        print(reservation_start, reservation_end)
+        reservation_start: datetime.datetime = timezone.make_aware(
+            datetime.datetime.combine(timezone.now().date(), open)
+            + datetime.timedelta(minutes=30),
+            timezone=tz,
+        )
+        reservation_end: datetime.datetime = timezone.make_aware(
+            datetime.datetime.combine(timezone.now().date(), open)
+            + datetime.timedelta(hours=1, minutes=30),
+            timezone=tz,
+        )
 
-        reservation = Reservation.objects.create(
+        Reservation.objects.create(
             court=self.court,
             user_id=self.user.pk,
             start_datetime=reservation_start,
             end_datetime=reservation_end,
         )
+
+        # Set up opening hours for all the days of the week
+
         for day in (
             "Monday",
             "Tuesday",
@@ -83,6 +91,9 @@ class TestCourtViewset(APITestCase):
             reverse("courts-schedule", kwargs={"pk": self.court.pk}),
         )
         self.assertEqual(response.status_code, HTTP_200_OK)
+
+        # Check that 1st slot is available
+
         self.assertEqual(
             response.data[0]["start"],
             timezone.make_aware(
@@ -97,3 +108,20 @@ class TestCourtViewset(APITestCase):
             ).strftime("%Y-%m-%dT%H:%M:%SZ"),
         )
         self.assertTrue(response.data[0]["available"])
+
+        # Check that second slot is not available
+        self.assertEqual(
+            response.data[1]["start"],
+            timezone.make_aware(
+                datetime.datetime.combine(timezone.now(), open)
+                + datetime.timedelta(minutes=30)
+            ).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        )
+        self.assertEqual(
+            response.data[1]["end"],
+            timezone.make_aware(
+                datetime.datetime.combine(timezone.now(), open)
+                + datetime.timedelta(minutes=60)
+            ).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        )
+        self.assertFalse(response.data[1]["available"])
