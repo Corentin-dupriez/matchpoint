@@ -14,9 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="openinghours",
             name="closing_hour",
-            field=models.IntegerField(
-                validators=[common.validators.ValidHoursValidator()]
-            ),
+            field=models.IntegerField(validators=[]),
         ),
         migrations.RemoveField(
             model_name="openinghours",
@@ -25,9 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="openinghours",
             name="opening_hour",
-            field=models.IntegerField(
-                validators=[common.validators.ValidHoursValidator()]
-            ),
+            field=models.IntegerField(validators=[]),
         ),
         migrations.AddField(
             model_name="openinghours",

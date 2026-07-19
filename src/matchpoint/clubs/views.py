@@ -66,6 +66,7 @@ class ClubViewSet(
         methods=["get"],
         detail=True,
         permission_classes=[IsClubEmployeeOrAdmin, IsAdminUser],
+        url_name="get-club-employees",
     )
     def employees(self, request: Request, pk=None) -> Response:
         club: Club = self.get_object()

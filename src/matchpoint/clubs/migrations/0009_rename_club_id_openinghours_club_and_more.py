@@ -33,15 +33,11 @@ class Migration(migrations.Migration):
                 ("day_end", models.DateField()),
                 (
                     "start_hour",
-                    models.IntegerField(
-                        validators=[common.validators.ValidHoursValidator()]
-                    ),
+                    models.IntegerField(validators=[]),
                 ),
                 (
                     "end_hour",
-                    models.IntegerField(
-                        validators=[common.validators.ValidHoursValidator()]
-                    ),
+                    models.IntegerField(validators=[]),
                 ),
                 (
                     "club",

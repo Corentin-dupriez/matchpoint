@@ -13,15 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="openinghours",
             name="closing_hour",
-            field=models.CharField(
-                validators=[common.validators.ValidHoursValidator("Incorrect time")]
-            ),
+            field=models.CharField(validators=[]),
         ),
         migrations.AlterField(
             model_name="openinghours",
             name="opening_hour",
-            field=models.CharField(
-                validators=[common.validators.ValidHoursValidator("Incorrect time")]
-            ),
+            field=models.CharField(validators=[]),
         ),
     ]

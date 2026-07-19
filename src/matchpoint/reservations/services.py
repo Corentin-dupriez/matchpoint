@@ -58,12 +58,9 @@ class ReservationService:
         unavailable_times = ReservationService._get_unavailable_times(court, date)
         opening, closing = ClubService.get_opening_hours(court.club_id, date)
         slots = []
-        slot: datetime.time = opening
+        slot: datetime.datetime = opening
         while slot < closing:
-            next_slot = (
-                datetime.datetime.combine(datetime.datetime.today(), slot)
-                + datetime.timedelta(minutes=30)
-            ).time()
+            next_slot = slot + datetime.timedelta(minutes=30)
             slots.append(
                 {
                     "start": slot,

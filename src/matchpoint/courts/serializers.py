@@ -9,6 +9,6 @@ class CourtSerializer(serializers.ModelSerializer):
 
 
 class CourtOpeningSerializer(serializers.Serializer):
-    start = serializers.TimeField()
-    end = serializers.TimeField()
+    start = serializers.DateTimeField()
+    end = serializers.DateTimeField()
     available = serializers.BooleanField()
