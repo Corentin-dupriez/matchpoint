@@ -14,26 +14,3 @@ class Club(models.Model):
     phone = models.CharField(max_length=12)
     email = models.EmailField()
     employees = models.ManyToManyField(to="users.CustomUser", related_name="club")
-
-
-class OpeningHours(models.Model):
-    class WeekdayChoices(models.TextChoices):
-        MONDAY = "Monday", "Mon"
-        TUESDAY = "Tuesday", "Tue"
-        WEDNESDAY = "Wednesday", "Wed"
-        THURSDAY = "Thursday", "Thu"
-        FRIDAY = "Friday", "Fry"
-        SATURDAY = "Saturday", "Sat"
-        SUNDAY = "Sunday", "Sun"
-
-    club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
-    weekday = models.CharField(choices=WeekdayChoices.choices)
-    opening_hour = models.TimeField()
-    closing_hour = models.TimeField()
-
-
-class ExceptionalUnavailability(models.Model):
-    club = models.ForeignKey(to=Club, on_delete=models.CASCADE)
-    court = models.ForeignKey(to=Court, on_delete=models.CASCADE, blank=True)
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()

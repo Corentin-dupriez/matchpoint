@@ -27,4 +27,4 @@ jobs:
           ruff check --output-format=github .
       - name: Run Tests
         run: |
-          pytest --cov
+          pytest src/matchpoint --cov

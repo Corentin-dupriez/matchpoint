@@ -3,7 +3,7 @@ from clubs.services import ClubService
 from courts.models import Court
 from users.models import CustomUser
 from .models import Reservation
-from clubs.models import ExceptionalUnavailability
+from exceptionalunavailability.models import ExceptionalUnavailability
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 import datetime

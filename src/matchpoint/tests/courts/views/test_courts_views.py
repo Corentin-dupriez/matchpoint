@@ -3,7 +3,8 @@ from courts.serializers import CourtSerializer
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from courts.models import Court
-from clubs.models import Club, OpeningHours
+from clubs.models import Club
+from openinghours.models import OpeningHours
 from reservations.models import Reservation
 from django.urls import reverse
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND

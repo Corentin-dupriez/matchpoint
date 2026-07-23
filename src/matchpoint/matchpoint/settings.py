@@ -30,7 +30,15 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-PROJECT_APPS = ["profiles", "clubs", "courts", "users", "reservations"]
+PROJECT_APPS = [
+    "profiles",
+    "clubs",
+    "courts",
+    "users",
+    "reservations",
+    "exceptionalunavailability",
+    "openinghours",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",

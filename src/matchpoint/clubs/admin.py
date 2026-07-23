@@ -1,12 +1,7 @@
 from django.contrib import admin
-from .models import Club, OpeningHours
+from .models import Club
 
 
 @admin.register(Club)
 class ClubAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(OpeningHours)
-class OpeningHoursAdmin(admin.ModelAdmin):
     pass

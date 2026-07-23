@@ -1,7 +1,7 @@
 import datetime
-
 from django.utils import timezone
-from .models import Club, OpeningHours
+from .models import Club
+from openinghours.models import OpeningHours
 from typing import Tuple
 
 

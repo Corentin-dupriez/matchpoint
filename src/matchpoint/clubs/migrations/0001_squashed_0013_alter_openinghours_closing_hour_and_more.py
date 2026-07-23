@@ -26,7 +26,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("courts", "0004_alter_court_club_id"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -57,84 +56,6 @@ class Migration(migrations.Migration):
                     "employees",
                     models.ManyToManyField(
                         related_name="club", to=settings.AUTH_USER_MODEL
-                    ),
-                ),
-            ],
-        ),
-        migrations.CreateModel(
-            name="ExceptionalUnavailability",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "club",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="clubs.club"
-                    ),
-                ),
-                (
-                    "court",
-                    models.ForeignKey(
-                        blank=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="courts.court",
-                    ),
-                ),
-                (
-                    "end_datetime",
-                    models.DateTimeField(
-                        default=datetime.datetime(2026, 7, 16, 8, 28, 8, 6807)
-                    ),
-                ),
-                (
-                    "start_datetime",
-                    models.DateTimeField(
-                        default=datetime.datetime(2026, 7, 16, 8, 28, 18, 235009)
-                    ),
-                ),
-            ],
-        ),
-        migrations.CreateModel(
-            name="OpeningHours",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "weekday",
-                    models.CharField(
-                        choices=[
-                            ("Monday", "Mon"),
-                            ("Tuesday", "Tue"),
-                            ("Wednesday", "Wed"),
-                            ("Thursday", "Thu"),
-                            ("Friday", "Fry"),
-                            ("Saturday", "Sat"),
-                            ("Sunday", "Sun"),
-                        ]
-                    ),
-                ),
-                ("closing_hour", models.TimeField()),
-                ("opening_hour", models.TimeField()),
-                (
-                    "club",
-                    models.ForeignKey(
-                        default=1,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="clubs.club",
                     ),
                 ),
             ],
