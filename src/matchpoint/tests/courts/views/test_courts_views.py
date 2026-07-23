@@ -1,6 +1,5 @@
 from rest_framework.test import APIClient, APITestCase
 from courts.serializers import CourtSerializer
-from courts.views import CourtViewSet
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from courts.models import Court
