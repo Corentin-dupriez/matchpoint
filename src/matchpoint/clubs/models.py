@@ -1,5 +1,4 @@
 from django.db import models
-from courts.models import Court
 
 
 class Club(models.Model):
