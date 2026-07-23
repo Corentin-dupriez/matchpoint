@@ -41,7 +41,7 @@ jobs:
       - name: Run migrations
         env:
           SECRET_KEY: test-secret
-        run: python manage.py migrate
+        run: python src/matchpoint/manage.py migrate
 
       - name: Run Tests
         run: |
