@@ -1,4 +1,5 @@
 from django.db import models
+from common.validators import CustomImageFormatValidator
 
 
 class Court(models.Model):
@@ -24,4 +25,6 @@ class CourtImages(models.Model):
     court_id = models.ForeignKey(
         to=Court, on_delete=models.CASCADE, related_name="images"
     )
-    image = models.ImageField(upload_to="courts")
+    image = models.ImageField(
+        upload_to="courts", validators=[CustomImageFormatValidator()]
+    )

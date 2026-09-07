@@ -1,4 +1,5 @@
 from django.db import models
+from common.validators import CustomImageFormatValidator
 
 
 class Club(models.Model):
@@ -16,7 +17,9 @@ class Club(models.Model):
     phone = models.CharField(max_length=12)
     email = models.EmailField()
     employees = models.ManyToManyField(to="users.CustomUser", related_name="club")
-    header_image = models.ImageField(null=True, upload_to="clubs/")
+    header_image = models.ImageField(
+        null=True, upload_to="clubs/", validators=[CustomImageFormatValidator()]
+    )
 
     # def save(self, *args, **kwargs):
     #

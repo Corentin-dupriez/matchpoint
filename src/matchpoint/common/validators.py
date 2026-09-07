@@ -43,6 +43,7 @@ class CustomImageFormatValidator:
         self.__message = value
 
     def __call__(self, value: CloudinaryResource | InMemoryUploadedFile):
+        file_size_limit_mb = 2.5
         if isinstance(value, CloudinaryResource):
             if value.format not in ["png", "jpg", "jpeg", "webp"]:
                 raise ValidationError(message=self.message)
@@ -51,3 +52,5 @@ class CustomImageFormatValidator:
             extension = name.split(".")[-1]
             if extension not in ["png", "jpg", "jpeg", "webp"]:
                 raise ValidationError(message=self.message)
+            if value.size is not None and value.size > file_size_limit_mb * 1024 * 1024:
+                raise ValidationError(message="File too large")

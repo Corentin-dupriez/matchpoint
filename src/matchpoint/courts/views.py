@@ -1,4 +1,5 @@
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import mixins
 from rest_framework import status
@@ -237,3 +238,20 @@ class CourtViewSet(
         serializer.is_valid(raise_exception=True)
 
         return Response(data=serializer.data)
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name="court_pk", location="path"),
+            OpenApiParameter(name="image_pk", location="path"),
+        ],
+        tags=["Courts"],
+    )
+    @action(methods=["delete"], detail=True, url_path="images", url_name="delete-image")
+    def delete_image(self, request: Request, court_pk=None, image_pk=None):
+        court = get_object_or_404(Court, pk=court_pk)
+        image = get_object_or_404(CourtImages, pk=image_pk)
+        if image.court_id != court.pk:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        image.image.delete()
+        image.delete()
+        return Response(status=status.HTTP_200_OK, data="Image deleted successfully")
