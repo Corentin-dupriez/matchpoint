@@ -52,8 +52,10 @@ jobs:
       - name: Run Tests
         run: |
           cd src/matchpoint && pytest --cov
-  deploy:
+  docker:
     runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name== 'push'
 
     permissions:
       contents: read
