@@ -20,8 +20,7 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"  # or any media storage you'd like to use.
     },
     "staticfiles": {  # this is the storage for static files
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"  # this is django's default storage for static files, for using cloudinry as static files storage see usage with static files section
-    },
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"    },
 }
 
 CLOUDINARY_STORAGE = {
